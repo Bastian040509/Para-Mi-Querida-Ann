@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>?? Para Mi Querida Ana ??</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: #ffe6f0;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ff1e56;
+    }
+    h1 {
+      font-size: 2.8rem;
+      text-shadow: 2px 2px 10px #ff91b8;
+      animation: heartbeat 2s infinite;
+      margin: 10px 20px;
+    }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    p {
+      font-size: 1.4rem;
+      margin: 0 20px 30px;
+      color: #ff4d6d;
+    }
+    a.button {
+      background-color: #ff4d6d;
+      color: white;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      margin: 10px;
+      transition: background 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+    a.button:hover {
+      background-color: #ff1e56;
+      transform: scale(1.1);
+    }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #ff91b8;
+    }
+    /* corazones animados de fondo */
+    .bg-heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('https://i.ibb.co/6bJp0d1/heart.png') no-repeat center;
+      background-size: contain;
+      pointer-events: none;
+      animation: floatUp 4s linear forwards;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.5); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      p { font-size: 1.1rem; }
+      a.button { font-size: 1rem; padding: 12px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>?? Para Mi Querida Ana ??</h1>
+  <p>Eres Una Princesa Muy Loquita ??</p>
+  <!-- Cambia los links por los tuyos -->
+  <a href="https://TU_LINK_GITHUB" target="_blank" class="button">?? Ver Página Online</a>
+  <a href="https://TU_LINK_DRIVE" target="_blank" class="button">?? Descargar Página</a>
+  <footer>Hecho con amor ?? por [Tu Nombre]</footer>
+
+  <!-- Música de fondo: reemplaza URL_MUSICA.mp3 con tu archivo legalmente autorizado -->
+  <audio id="bgMusic" loop>
+    <source src="URL_MUSICA.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <script>
+    const messages = ["??Te Amo??","??Mi Princesa??","??Eres Mía??","??Corazón??"];
+    const body = document.body;
+
+    // Inicia música al primer clic (por política de autoplay de algunos navegadores)
+    body.addEventListener('click', () => {
+      const music = document.getElementById('bgMusic');
+      if (music.paused) {
+        music.play().catch(e => console.log("No se pudo reproducir música:", e));
+      }
+    }, { once: true });
+
+    // Explosión de palabras al clic
+    body.addEventListener('click', function(e){
+      const msg = document.createElement('div');
+      msg.innerText = messages[Math.floor(Math.random()*messages.length)];
+      msg.style.position = 'absolute';
+      msg.style.left = e.pageX + 'px';
+      msg.style.top = e.pageY + 'px';
+      msg.style.fontSize = '20px';
+      msg.style.fontWeight = 'bold';
+      msg.style.color = '#ff1e56';
+      msg.style.opacity = '1';
+      msg.style.transition = 'all 1s ease-out';
+      body.appendChild(msg);
+      setTimeout(() => {
+        msg.style.top = (e.pageY - 100) + 'px';
+        msg.style.opacity = '0';
+      }, 50);
+      setTimeout(() => msg.remove(), 1000);
+    });
+
+    // Corazones flotando de fondo aleatoriamente
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'bg-heart';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      const size = 20 + Math.random()*30;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }, 300);
+  </script>
+</body>
+</html>
